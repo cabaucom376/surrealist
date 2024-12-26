@@ -5,7 +5,7 @@ import { useConfigStore } from "~/stores/config";
 import type { CloudSignin } from "~/types";
 import { isDevelopment } from "~/util/environment";
 import { CloudAuthEvent, CloudExpiredEvent } from "~/util/global-events";
-import { showError } from "~/util/helpers";
+import { fastParseJwt, showError } from "~/util/helpers";
 import { REFERRER_KEY, REFRESH_TOKEN_KEY, STATE_KEY, VERIFIER_KEY } from "~/util/storage";
 import { fetchAPI, updateCloudInformation } from ".";
 import { openTermsModal } from "../onboarding/terms-and-conditions";
@@ -131,7 +131,7 @@ export async function verifyAuthentication(code: string, state: string) {
 
 		localStorage.setItem(REFRESH_TOKEN_KEY, result.refresh_token);
 
-		acquireSession(result.access_token);
+		acquireSession(result.id_token);
 	} catch (err: any) {
 		console.error("Failed to verify authentication", err);
 
@@ -190,7 +190,7 @@ export async function refreshAccess() {
 
 		localStorage.setItem(REFRESH_TOKEN_KEY, result.refresh_token);
 
-		acquireSession(result.access_token);
+		acquireSession(result.id_token);
 	} catch (err: any) {
 		console.error("Failed to refresh access token", err);
 
@@ -202,9 +202,9 @@ export async function refreshAccess() {
 /**
  * Attempt to start a new session using the given access token
  */
-export async function acquireSession(accessToken: string) {
+export async function acquireSession(id_token: string) {
 	try {
-		const { setSessionToken, setSessionExpired } = useCloudStore.getState();
+		const { setSessionToken, setSessionExpired, setProfile } = useCloudStore.getState();
 		const referralCode = sessionStorage.getItem(REFERRER_KEY);
 
 		adapter.log("Cloud", "Acquiring cloud session");
@@ -217,10 +217,23 @@ export async function acquireSession(accessToken: string) {
 
 		const result = await fetchAPI<CloudSignin>(endpoint, {
 			method: "POST",
-			body: JSON.stringify(accessToken),
+			body: JSON.stringify(id_token),
 		});
 
 		setSessionToken(result.token);
+
+		const token = fastParseJwt(id_token)
+		if (token !== null) {
+			setProfile({
+				default_org: token.default_org,
+				username: token.username,
+				name: token.name,
+				picture: token.picture,
+			})
+		} else {
+			throw new Error("Failed to parse ID Token")
+		}
+
 		await updateCloudInformation();
 
 		adapter.log("Cloud", `Session acquired`);
