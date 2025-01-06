@@ -63,6 +63,7 @@ import {
 	iconReferral,
 	iconServer,
 	iconSidekick,
+	iconTag,
 } from "./util/icons";
 
 import type { MantineColorScheme } from "@mantine/core";
@@ -274,6 +275,11 @@ export const CLOUD_PAGES: Record<CloudPage, CloudPageInfo> = {
 		id: "billing",
 		name: "Billing",
 		icon: iconCreditCard,
+	},
+	tickets: {
+		id: "tickets",
+		name: "Tickets",
+		icon: iconTag,
 	},
 	support: {
 		id: "support",

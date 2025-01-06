@@ -33,6 +33,7 @@ import ProvisionPage from "./pages/Provision";
 import ReferralPage from "./pages/Referral";
 import SettingsPage from "./pages/Settings";
 import SupportPage from "./pages/Support";
+import TicketsPage from "./pages/Tickets";
 
 const PORTAL_OPTIONS = {
 	attributes: {
@@ -46,6 +47,7 @@ const PAGE_PORTALS: Record<CloudPage, HtmlPortalNode> = {
 	audits: createHtmlPortalNode(PORTAL_OPTIONS),
 	data: createHtmlPortalNode(PORTAL_OPTIONS),
 	billing: createHtmlPortalNode(PORTAL_OPTIONS),
+	tickets: createHtmlPortalNode(PORTAL_OPTIONS),
 	support: createHtmlPortalNode(PORTAL_OPTIONS),
 	referral: createHtmlPortalNode(PORTAL_OPTIONS),
 	settings: createHtmlPortalNode(PORTAL_OPTIONS),
@@ -59,6 +61,7 @@ const PAGE_COMPONENTS: Record<CloudPage, FC> = {
 	audits: PlaceholderPage,
 	data: PlaceholderPage,
 	billing: BillingPage,
+	tickets: TicketsPage,
 	support: SupportPage,
 	referral: ReferralPage,
 	settings: SettingsPage,

@@ -63,6 +63,7 @@ export type CloudPage =
 	| "data"
 	| "audits"
 	| "billing"
+	| "tickets"
 	| "support"
 	| "referral"
 	| "settings"
