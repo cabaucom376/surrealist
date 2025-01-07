@@ -27,6 +27,7 @@ import { iconAccount, iconExitToAp } from "~/util/icons";
 import { Form } from "../Form";
 import { Icon } from "../Icon";
 import { PrimaryTitle } from "../PrimaryTitle";
+import { AccountAvatar } from "../AccountAvatar";
 
 interface AccountFormProps {
 	onClose(): void;
@@ -108,7 +109,10 @@ export function CloudAccount() {
 
 	if (state === "unauthenticated") {
 		return (
-			<Tooltip label="Sign in to Surreal Cloud" openDelay={300}>
+			<Tooltip
+				label="Sign in to Surreal Cloud"
+				openDelay={300}
+			>
 				<Avatar
 					radius="md"
 					size={36}
@@ -132,20 +136,7 @@ export function CloudAccount() {
 				}}
 			>
 				<Menu.Target>
-					<Avatar
-						radius="md"
-						size={36}
-						name={name}
-						src={profile.picture}
-						component={UnstyledButton}
-					>
-						{state === "loading" && !profile.picture && (
-							<Loader
-								size="sm"
-								color="slate.4"
-							/>
-						)}
-					</Avatar>
+					<AccountAvatar />
 				</Menu.Target>
 				<Menu.Dropdown w={200}>
 					<Box p="sm">

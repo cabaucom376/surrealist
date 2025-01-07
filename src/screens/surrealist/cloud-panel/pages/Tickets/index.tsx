@@ -6,6 +6,7 @@ import {
 	Divider,
 	Grid,
 	Group,
+	Menu,
 	Paper,
 	ScrollArea,
 	Select,
@@ -14,6 +15,7 @@ import {
 	Table,
 	Text,
 	Textarea,
+	TextInput,
 	UnstyledButton,
 } from "@mantine/core";
 import classes from "./style.module.scss";
@@ -23,8 +25,10 @@ import {
 	iconBullhorn,
 	iconCommunity,
 	iconCursor,
+	iconFilter,
 	iconHelp,
 	iconHistory,
+	iconSearch,
 	iconTag,
 	iconTarget,
 } from "~/util/icons";
@@ -36,6 +40,7 @@ import { Pagination } from "~/components/Pagination";
 import { usePagination } from "~/components/Pagination/hook";
 import { Spacer } from "~/components/Spacer";
 import { useLocation } from "wouter";
+import { ActionButton } from "~/components/ActionButton";
 
 interface HistoryEntry {
 	id: number;
@@ -221,13 +226,31 @@ export function TicketsPage() {
 									>
 										Ticket History
 									</Text>
-									<Badge
-										color={isLight ? "slate.0" : "slate.9"}
-										radius="sm"
-										c="inherit"
-									>
-										{SAMPLE_HISTORY.length}
-									</Badge>
+									<Spacer />
+									<TextInput
+										placeholder="Search tickets..."
+										leftSection={<Icon path={iconSearch} />}
+										// value={search}
+										spellCheck={false}
+										// onChange={setSearch}
+										variant="unstyled"
+										autoFocus
+										size="xs"
+									/>
+									<Menu>
+										<Menu.Target>
+											<div>
+												<ActionButton label="Filter tickets">
+													<Icon path={iconFilter} />
+												</ActionButton>
+											</div>
+										</Menu.Target>
+										<Menu.Dropdown>
+											<Menu.Item>Pending</Menu.Item>
+											<Menu.Item>Active</Menu.Item>
+											<Menu.Item>Closed</Menu.Item>
+										</Menu.Dropdown>
+									</Menu>
 								</Group>
 								<Divider my="md" />
 								<Table>
@@ -350,6 +373,28 @@ export function TicketsPage() {
 												<Text>
 													Our team typically responds to tickets within 24
 													hours.
+												</Text>
+											</Accordion.Panel>
+										</Accordion.Item>
+										<Accordion.Item value="severity">
+											<Accordion.Control>
+												How do I set ticket severity?
+											</Accordion.Control>
+											<Accordion.Panel>
+												<Text>
+													You can set ticket severity when submitting a
+													ticket.
+												</Text>
+											</Accordion.Panel>
+										</Accordion.Item>
+										<Accordion.Item value="type">
+											<Accordion.Control>
+												How do I set ticket type?
+											</Accordion.Control>
+											<Accordion.Panel>
+												<Text>
+													You can set ticket type when submitting a
+													ticket.
 												</Text>
 											</Accordion.Panel>
 										</Accordion.Item>
