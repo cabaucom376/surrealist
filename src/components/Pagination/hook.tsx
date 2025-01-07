@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useStable } from "~/hooks/stable";
 
+export interface PaginationOptions {
+	initialPageSize?: number;
+}
+
 export interface PaginationStore {
 	total: number;
 	currentPage: number;
@@ -12,12 +16,13 @@ export interface PaginationStore {
 	setPageSize: (size: number) => void;
 	previousPage: () => void;
 	nextPage: () => void;
+	applyTo: <T>(items: T[]) => T[];
 }
 
-export function usePagination(): PaginationStore {
+export function usePagination(options?: PaginationOptions): PaginationStore {
 	const [total, setTotal] = useState(0);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [pageSize, setPageSize] = useState(25);
+	const [pageSize, setPageSize] = useState(options?.initialPageSize ?? 25);
 	const pageCount = Math.ceil(total / pageSize);
 
 	const previousPage = useStable(() => {
@@ -49,6 +54,10 @@ export function usePagination(): PaginationStore {
 		setCurrentPage(1);
 	});
 
+	const applyTo = useStable((items: any[]) => {
+		return items.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+	});
+
 	return {
 		total,
 		currentPage,
@@ -60,5 +69,6 @@ export function usePagination(): PaginationStore {
 		setPageSize: updatePageSize,
 		previousPage,
 		nextPage,
+		applyTo,
 	};
 }
