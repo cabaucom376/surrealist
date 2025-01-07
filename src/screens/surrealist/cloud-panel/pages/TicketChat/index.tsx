@@ -1,26 +1,38 @@
+import surrealImg from "~/assets/images/surrealdb.png";
+
 import {
 	Avatar,
 	Badge,
 	Box,
 	Button,
-	Center,
 	Divider,
 	Group,
-	Menu,
 	Paper,
 	ScrollArea,
+	Stack,
 	Text,
-	Textarea,
+	ThemeIcon,
 } from "@mantine/core";
-import { format, formatRelative, subDays } from "date-fns";
+
+import {
+	iconAccount,
+	iconArrowLeft,
+	iconBullhorn,
+	iconChat,
+	iconClose,
+	iconCursor,
+	iconTarget,
+} from "~/util/icons";
+
+import { formatRelative, subDays } from "date-fns";
 import classes from "./style.module.scss";
 import { PrimaryTitle } from "~/components/PrimaryTitle";
 import { Icon } from "~/components/Icon";
-import { iconArrowLeft, iconChevronDown, iconClose, iconCursor, iconEdit } from "~/util/icons";
 import { useLocation } from "wouter";
 import { Spacer } from "~/components/Spacer";
 import { AccountAvatar } from "~/components/AccountAvatar";
 import { useCloudStore } from "~/stores/cloud";
+import { Label } from "~/components/Label";
 
 export interface TicketChatPageProps {
 	params: any;
@@ -53,10 +65,7 @@ export function TicketChatPage({ params }: TicketChatPageProps) {
 					maw={900}
 					pb={96}
 				>
-					<Group
-						wrap="nowrap"
-						align="start"
-					>
+					<Group wrap="nowrap">
 						<PrimaryTitle>Ticket #{id}</PrimaryTitle>
 						<Spacer />
 						<Button
@@ -69,60 +78,181 @@ export function TicketChatPage({ params }: TicketChatPageProps) {
 							Back to overview
 						</Button>
 					</Group>
-					<Paper
-						p="xl"
-						mt="xl"
-					>
-						<Group
-							wrap="nowrap"
-							align="start"
-							gap="xl"
+					{/* <Group mt="xs">
+						<Badge
+							leftSection={
+								<Icon
+									path={iconBullhorn}
+									mr="xs"
+								/>
+							}
+							variant="light"
+							color="slate"
+							size="sm"
+							h={24}
+							px="sm"
 						>
-							<AccountAvatar />
-							<Box flex={1}>
-								<Text
-									fw="500"
-									c="bright"
-									fz="lg"
-								>
-									{profile.name}
-								</Text>
-								<Text c="slate">
-									{formatRelative(subDays(new Date(), 4), new Date())}
-								</Text>
-								<Text mt="md">
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Architecto, cum officia? Modi suscipit ullam excepturi, adipisci
-									facere illo sequi laboriosam quisquam corrupti. Sunt enim,
-									deserunt repellendus id non sapiente mollitia.
-								</Text>
-								<Text>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Architecto, cum officia? Modi suscipit ullam excepturi, adipisci
-									facere illo sequi laboriosam quisquam corrupti. Sunt enim,
-									deserunt repellendus id non sapiente mollitia.
-								</Text>
-								<Text>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Architecto, cum officia? Modi suscipit ullam excepturi, adipisci
-									facere illo sequi laboriosam quisquam corrupti. Sunt enim,
-									deserunt repellendus id non sapiente mollitia.
-								</Text>
-								<Text>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit.
-									Architecto, cum officia? Modi suscipit ullam excepturi, adipisci
-									facere illo sequi laboriosam quisquam corrupti. Sunt enim,
-									deserunt repellendus id non sapiente mollitia.
-								</Text>
-							</Box>
-						</Group>
-					</Paper>
+							Technical
+						</Badge>
+						<Badge
+							leftSection={
+								<Icon
+									path={iconTarget}
+									mr="xs"
+								/>
+							}
+							variant="light"
+							color="slate"
+							size="sm"
+							h={24}
+							px="sm"
+						>
+							Medium - p3
+						</Badge>
+					</Group> */}
+					<Group
+						mt="md"
+						wrap="nowrap"
+						align="start"
+					>
+						<Paper
+							p="lg"
+							flex={1}
+						>
+							<Group
+								wrap="nowrap"
+								align="start"
+								gap="xl"
+							>
+								<AccountAvatar />
+								<Box flex={1}>
+									<Text
+										fw="500"
+										c="bright"
+										fz="lg"
+									>
+										{profile.name}
+									</Text>
+									<Text c="slate">
+										{formatRelative(subDays(new Date(), 4), new Date())}
+									</Text>
+									<Text mt="md">Hi,</Text>
+									<br />
+									<Text>
+										Lorem ipsum dolor sit amet consectetur adipisicing elit.
+										Architecto, cum officia? Modi suscipit ullam excepturi,
+										adipisci facere illo sequi laboriosam quisquam corrupti.
+										Sunt enim, deserunt repellendus id non sapiente mollitia.
+									</Text>
+									<br />
+									<Text>
+										Lorem ipsum dolor sit amet consectetur adipisicing elit.
+										Architecto, cum officia? Modi suscipit ullam excepturi,
+										adipisci facere illo sequi laboriosam quisquam corrupti.
+										Sunt enim, deserunt repellendus id non sapiente mollitia.
+									</Text>
+									<br />
+									<Text>Thanks!</Text>
+								</Box>
+							</Group>
+						</Paper>
+						<Paper
+							p="lg"
+							flex={1}
+							maw={225}
+						>
+							<Stack gap="lg">
+								<Group>
+									<ThemeIcon
+										size="lg"
+										variant="light"
+										color="orange"
+									>
+										<Icon path={iconChat} />
+									</ThemeIcon>
+									<Box>
+										<Label
+											mb={0}
+											fz="xs"
+											c="slate.3"
+										>
+											Status
+										</Label>
+										<Text c="bright">Awaiting response</Text>
+									</Box>
+								</Group>
+								<Divider />
+								<Group>
+									<ThemeIcon
+										size="lg"
+										variant="light"
+									>
+										<Icon path={iconBullhorn} />
+									</ThemeIcon>
+									<Box>
+										<Label
+											mb={0}
+											fz="xs"
+											c="slate.3"
+										>
+											Type
+										</Label>
+										<Text c="bright">Technical</Text>
+									</Box>
+								</Group>
+								<Group>
+									<ThemeIcon
+										size="lg"
+										variant="light"
+										color="blue"
+									>
+										<Icon path={iconTarget} />
+									</ThemeIcon>
+									<Box>
+										<Label
+											mb={0}
+											fz="xs"
+											c="slate.3"
+										>
+											Severity
+										</Label>
+										<Text c="bright">Medium - p3</Text>
+									</Box>
+								</Group>
+								<Group wrap="nowrap">
+									<ThemeIcon
+										size="lg"
+										variant="light"
+										color="green"
+									>
+										<Icon path={iconAccount} />
+									</ThemeIcon>
+									<Box miw={0}>
+										<Label
+											mb={0}
+											fz="xs"
+											c="slate.3"
+										>
+											Submitter
+										</Label>
+										<Text
+											c="bright"
+											truncate
+										>
+											{profile.name}
+											{profile.name}
+										</Text>
+									</Box>
+								</Group>
+							</Stack>
+						</Paper>
+					</Group>
 
 					<PrimaryTitle mt="xl">1 Reply</PrimaryTitle>
 					<Divider mt="xs" />
 
 					<Paper
-						p="xl"
+						p="lg"
 						mt="xl"
 					>
 						<Group
@@ -130,7 +260,13 @@ export function TicketChatPage({ params }: TicketChatPageProps) {
 							align="start"
 							gap="xl"
 						>
-							<AccountAvatar />
+							<Avatar
+								radius="md"
+								size={36}
+								src={surrealImg}
+								bg="surreal.0"
+								name="John Doe"
+							/>
 							<Box flex={1}>
 								<Group gap="xs">
 									<Text
@@ -138,7 +274,7 @@ export function TicketChatPage({ params }: TicketChatPageProps) {
 										c="bright"
 										fz="lg"
 									>
-										John Doe
+										Mr. Surreal
 									</Text>
 									<Badge
 										color="blue"
@@ -151,7 +287,7 @@ export function TicketChatPage({ params }: TicketChatPageProps) {
 								<Text c="slate">
 									{formatRelative(subDays(new Date(), 3), new Date())}
 								</Text>
-								<Text mt="md">No</Text>
+								<Text mt="md">Hello!</Text>
 							</Box>
 						</Group>
 					</Paper>
