@@ -34,6 +34,7 @@ import ReferralPage from "./pages/Referral";
 import SettingsPage from "./pages/Settings";
 import SupportPage from "./pages/Support";
 import TicketsPage from "./pages/Tickets";
+import TicketChatPage from "./pages/TicketChat";
 
 const PORTAL_OPTIONS = {
 	attributes: {
@@ -48,6 +49,7 @@ const PAGE_PORTALS: Record<CloudPage, HtmlPortalNode> = {
 	data: createHtmlPortalNode(PORTAL_OPTIONS),
 	billing: createHtmlPortalNode(PORTAL_OPTIONS),
 	tickets: createHtmlPortalNode(PORTAL_OPTIONS),
+	ticketchat: createHtmlPortalNode(PORTAL_OPTIONS),
 	support: createHtmlPortalNode(PORTAL_OPTIONS),
 	referral: createHtmlPortalNode(PORTAL_OPTIONS),
 	settings: createHtmlPortalNode(PORTAL_OPTIONS),
@@ -62,6 +64,7 @@ const PAGE_COMPONENTS: Record<CloudPage, FC> = {
 	data: PlaceholderPage,
 	billing: BillingPage,
 	tickets: TicketsPage,
+	ticketchat: TicketChatPage,
 	support: SupportPage,
 	referral: ReferralPage,
 	settings: SettingsPage,
@@ -227,11 +230,17 @@ export function CloudPanelPage() {
 					{Object.values(CLOUD_PAGES).map((page) => (
 						<Route
 							key={page.id}
-							path={`/cloud/${page.id}`}
+							path={`/cloud/${page.path ?? page.id}`}
 						>
-							<Suspense fallback={null}>
-								<OutPortal node={PAGE_PORTALS[page.id]} />
-							</Suspense>
+							{(params) => (
+								<Suspense fallback={null}>
+									<OutPortal
+										node={PAGE_PORTALS[page.id]}
+										params={params}
+										test="true"
+									/>
+								</Suspense>
+							)}
 						</Route>
 					))}
 
@@ -247,14 +256,14 @@ export function CloudPanelPage() {
 				const Content = PAGE_COMPONENTS[page.id];
 
 				return (
-					<InPortal
+					<Suspense
 						key={page.id}
-						node={PAGE_PORTALS[page.id]}
+						fallback={null}
 					>
-						<Suspense fallback={null}>
+						<InPortal node={PAGE_PORTALS[page.id]}>
 							<Content />
-						</Suspense>
-					</InPortal>
+						</InPortal>
+					</Suspense>
 				);
 			})}
 		</Flex>

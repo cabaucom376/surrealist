@@ -276,6 +276,12 @@ export const CLOUD_PAGES: Record<CloudPage, CloudPageInfo> = {
 		name: "Billing",
 		icon: iconCreditCard,
 	},
+	ticketchat: {
+		id: "ticketchat",
+		path: "tickets/:id",
+		name: "Ticket Chat",
+		icon: iconTag,
+	},
 	tickets: {
 		id: "tickets",
 		name: "Tickets",

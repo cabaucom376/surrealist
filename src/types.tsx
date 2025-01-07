@@ -64,6 +64,7 @@ export type CloudPage =
 	| "audits"
 	| "billing"
 	| "tickets"
+	| "ticketchat"
 	| "support"
 	| "referral"
 	| "settings"
@@ -470,6 +471,7 @@ export interface CloudPageInfo {
 	id: CloudPage;
 	name: string;
 	icon: string;
+	path?: string;
 	disabled?: FeatureCondition;
 }
 

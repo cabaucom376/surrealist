@@ -35,6 +35,7 @@ import { useStable } from "~/hooks/stable";
 import { Pagination } from "~/components/Pagination";
 import { usePagination } from "~/components/Pagination/hook";
 import { Spacer } from "~/components/Spacer";
+import { useLocation } from "wouter";
 
 interface HistoryEntry {
 	id: number;
@@ -97,6 +98,7 @@ export function TicketsPage() {
 	const [body, setBody] = useInputState("");
 	const [type, setType] = useState("");
 	const [severity, setSeverity] = useState("");
+	const [, navigate] = useLocation();
 
 	const ticketHistory = usePagination({
 		initialPageSize: 10,
@@ -175,6 +177,8 @@ export function TicketsPage() {
 									leftSection={<Icon path={iconBullhorn} />}
 									value={type}
 									onChange={setType as any}
+									maw={225}
+									w="100%"
 								/>
 								<Select
 									data={SEVERITIES}
@@ -183,6 +187,8 @@ export function TicketsPage() {
 									leftSection={<Icon path={iconTarget} />}
 									value={severity}
 									onChange={setSeverity as any}
+									maw={225}
+									w="100%"
 								/>
 								<Spacer />
 								<Button
@@ -238,6 +244,9 @@ export function TicketsPage() {
 											<UnstyledButton
 												key={ticket.id}
 												component={Table.Tr}
+												onClick={() => {
+													navigate(`tickets/${ticket.id}`);
+												}}
 											>
 												<Table.Td
 													fw={500}
