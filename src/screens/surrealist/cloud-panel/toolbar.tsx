@@ -27,7 +27,6 @@ export function CloudToolbar({ showBreadcrumb }: CloudToolbarProps) {
 					>
 						Surreal Cloud
 					</PrimaryTitle>
-					<BetaBadge visibleFrom="md" />
 					<Icon
 						path={iconChevronRight}
 						visibleFrom="md"

@@ -35,7 +35,6 @@ import {
 
 import { useLocation } from "wouter";
 import { adapter } from "~/adapter";
-import { BetaBadge } from "~/components/BetaBadge";
 import { Icon } from "~/components/Icon";
 import { SANDBOX } from "~/constants";
 import { useLatestNewsQuery } from "~/hooks/newsfeed";
@@ -131,12 +130,7 @@ export function StartPage() {
 						gap="lg"
 					>
 						<StartAction
-							title={
-								<Group gap="xs">
-									Explore Surreal Cloud
-									<BetaBadge />
-								</Group>
-							}
+							title={<Group gap="xs">Explore Surreal Cloud</Group>}
 							subtitle="Surreal Cloud redefines the database experience, offering the power and flexibility of SurrealDB without the pain of managing infrastructure."
 							icon={iconCloud}
 							onClick={openCloud}

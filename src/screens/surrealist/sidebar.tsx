@@ -16,7 +16,6 @@ import clsx from "clsx";
 import { Fragment, useMemo } from "react";
 import { useLocation } from "wouter";
 import iconUrl from "~/assets/images/icon.webp";
-import { BetaBadge } from "~/components/BetaBadge";
 import { NavigationIcon } from "~/components/NavigationIcon";
 import { Shortcut } from "~/components/Shortcut";
 import { Spacer } from "~/components/Spacer";
@@ -109,10 +108,12 @@ export function DatabaseSidebar({ sidebarMode, className, ...other }: SidebarPro
 				pt={22}
 			>
 				<Space h="var(--titlebar-offset)" />
-				<UnstyledButton onClick={() => {
-					setLocation("/start");
-					setOverlaySidebar(false)
-				}}>
+				<UnstyledButton
+					onClick={() => {
+						setLocation("/start");
+						setOverlaySidebar(false);
+					}}
+				>
 					<Flex
 						wrap="nowrap"
 						align="center"
@@ -146,7 +147,6 @@ export function DatabaseSidebar({ sidebarMode, className, ...other }: SidebarPro
 										gap="xs"
 									>
 										Surreal Cloud
-										<BetaBadge />
 									</Group>
 								}
 								icon={iconCloud}
