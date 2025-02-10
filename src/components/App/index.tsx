@@ -24,14 +24,17 @@ import { AccessSignupModal } from "./modals/signup";
 import { TableCreatorModal } from "./modals/table";
 import { UpdaterDialog } from "./modals/updater";
 import { Settings } from "./settings";
+import { PulloutProvider } from "~/providers/Pullout";
 
 function Surrealist() {
 	return (
-		<InspectorProvider>
-			<DesignerProvider>
-				<SurrealistScreen />
-			</DesignerProvider>
-		</InspectorProvider>
+		<PulloutProvider>
+			<InspectorProvider>
+				<DesignerProvider>
+					<SurrealistScreen />
+				</DesignerProvider>
+			</InspectorProvider>
+		</PulloutProvider>
 	);
 }
 

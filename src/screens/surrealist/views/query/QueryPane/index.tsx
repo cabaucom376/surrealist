@@ -15,6 +15,7 @@ import {
 	iconDollar,
 	iconServer,
 	iconStar,
+	iconSurreal,
 	iconText,
 	iconWarning,
 } from "~/util/icons";
@@ -45,6 +46,8 @@ import type { QueryTab } from "~/types";
 import { extractVariables, showError, tryParseParams } from "~/util/helpers";
 import { formatQuery, formatValue } from "~/util/surrealql";
 import { readQuery, writeQuery } from "../QueryView/strategy";
+import { usePullout } from "~/providers/Pullout";
+import { PulloutTitle } from "~/components/PulloutTitle";
 
 const SERIALIZE = {
 	history: historyField,
@@ -208,6 +211,8 @@ export function QueryPane({
 	useIntent("format-query", handleFormat);
 	useIntent("infer-variables", inferVariables);
 
+	const { open } = usePullout();
+
 	return (
 		<ContentPane
 			title={activeTab.name || "Query"}
@@ -261,6 +266,16 @@ export function QueryPane({
 								</HoverCard.Dropdown>
 							</HoverCard>
 						)}
+
+						<ActionButton
+							variant="light"
+							label="Do something"
+							onClick={() => {
+								open(<PulloutTitle>Hello World</PulloutTitle>);
+							}}
+						>
+							<Icon path={iconSurreal} />
+						</ActionButton>
 
 						<ActionButton
 							variant="light"
